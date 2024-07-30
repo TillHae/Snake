@@ -1,13 +1,13 @@
 const canvas = document.getElementById("canvas");
 const board = canvas.getContext("2d");
-const gameWidth = board.width;
-const gameHeight = board.height;
+const gameWidth = canvas.width;
+const gameHeight = canvas.height;
 const unitSize = 50;
 const foodColor = "red";
 const SnakeColor = "green"
 
 let apple = [0, 0];     // (x, y)
-let snake = [[7, 4], [6, 4], [5, 4], [4, 4]];
+let snake = [[4, 4], [5, 4], [6, 4], [7, 4]];
 let direction = (-1, 0)  // (left/right, down/up)
 
 // calls changeDirection whenever a key is pressed
@@ -70,12 +70,21 @@ function moveSnake(){
     }
     else{
         checkApple();
-        //nextRound();
+        nextRound();
     }
 };
 
 // Test whether game is over
-function gameOver(){};
+function gameOver(){
+    const width = gameWidth / unitSize;
+    const height = gameHeight / unitSize;
+    if (snake[0][0] >= width || snake[0][1] >= height || snake[0][0] < 0 || snake[0][1] < 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+};
 
 // checks if apple was eaten // pop from snake when apple was not eaten
 function checkApple(){
@@ -93,4 +102,4 @@ function createApple(){};
 // ends game
 function endGame(){};
 
-startGame()
+startGame();
