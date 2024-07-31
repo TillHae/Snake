@@ -28,8 +28,8 @@ function startGame(){
 // starts next round
 function nextRound(){
     setTimeout(() => {
-        drawBoard();
         moveSnake();
+        drawBoard();
     }, 400);
 };
 
@@ -75,11 +75,11 @@ function changeDirection(){
 // moves Snake
 function moveSnake(){
     snake.unshift([snake[0][0] + direction[0], snake[0][1] + direction[1]]);
-    checkApple();
     if (gameOver()){
         endGame();
     }
     else{
+        checkApple();
         nextRound();
     }
 };
@@ -116,7 +116,6 @@ function createApple(){
 
 // ends game
 function endGame(){
-    drawBoard();
     window.alert("Game Over! Your score was: " + snake.length);
 };
 
