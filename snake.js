@@ -3,6 +3,8 @@ const board = canvas.getContext("2d");
 const gameWidth = canvas.width;
 const gameHeight = canvas.height;
 const unitSize = 50;
+const width = gameWidth / unitSize;
+const height = gameHeight / unitSize;
 const foodColor = "red";
 const SnakeColor = "green"
 
@@ -76,8 +78,6 @@ function moveSnake(){
 
 // Test whether game is over
 function gameOver(){
-    const width = gameWidth / unitSize;
-    const height = gameHeight / unitSize;
     if (snake[0][0] >= width || snake[0][1] >= height || snake[0][0] < 0 || snake[0][1] < 0){
         return true;
     }
@@ -88,16 +88,18 @@ function gameOver(){
 
 // checks if apple was eaten // pop from snake when apple was not eaten
 function checkApple(){
-    eatApple();
+    if (snake[0] == apple){
+        createApple();
+    }
+    else{
+        snake.pop()
+    }
 };
 
-// Snake eats the apple
-function eatApple(){
-    createApple();
+// overwrites apple with a random position
+function createApple(){
+    apple = (Math.round(Math.random() * width), Math.round(Math.random() * height));
 };
-
-// creates an apple at a random position
-function createApple(){};
 
 // ends game
 function endGame(){};
