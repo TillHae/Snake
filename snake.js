@@ -8,23 +8,24 @@ const height = gameHeight / unitSize;
 const foodColor = "red";
 const SnakeColor = "green"
 
-let apple = [0, 0];     // (x, y)
+let apple = [4, 4];     // (x, y)
 let snake = [[4, 4], [5, 4], [6, 4], [7, 4]];
-let direction = (-1, 0)  // (left/right, down/up)
+let direction = [-1, 0]  // (left/right, down/up)
 
 // calls changeDirection whenever a key is pressed
 window.addEventListener("keydown", changeDirection);
 
 // start game
 function startGame(){
-    console.log("Game started")
     nextRound();
 };
 
 // starts next round
 function nextRound(){
-    drawBoard();
-    moveSnake();
+    setTimeout(() => {
+        drawBoard();
+        moveSnake();
+    }, 400);
 };
 
 // draws the board
@@ -35,7 +36,7 @@ function drawBoard(){
 
     // add Apple
     board.fillStyle = foodColor;
-    board.fillRect(apple[0], apple[1], unitSize, unitSize);
+    board.fillRect(apple[0] * unitSize, apple[1] * unitSize, unitSize, unitSize);
 
     // add Snake
     board.fillStyle = SnakeColor;
@@ -53,20 +54,22 @@ function changeDirection(){
     const up = 38;
     switch (true){
         case (keyPressed == left):
-            direction = (-1, 0);
+            direction = [-1, 0];
+            break;
         case (keyPressed == right):
-            direction = (1, 0);
+            direction = [1, 0];
+            break;
         case (keyPressed == down):
-            direction = (0, -1);
+            direction = [0, 1];
+            break;
         case (keyPressed == up):
-            direction = (0, 1);
+            direction = [0, -1];
     }
 }
 
 // moves Snake
 function moveSnake(){
-    let len = snake.length
-    snake.push((snake[len - 1][0] + direction[0], snake[len - 1][1] + direction[1]));
+    snake.unshift([snake[0][0] + direction[0], snake[0][1] + direction[1]]);
     if (gameOver()){
         endGame();
     }
@@ -78,6 +81,11 @@ function moveSnake(){
 
 // Test whether game is over
 function gameOver(){
+    for (let i = 1; i < snake.length; i++){
+        if (snake[0][0] == snake[i][0] && snake[0][1] == snake[i][1]){
+            return true;
+        }
+    }
     if (snake[0][0] >= width || snake[0][1] >= height || snake[0][0] < 0 || snake[0][1] < 0){
         return true;
     }
@@ -88,17 +96,17 @@ function gameOver(){
 
 // checks if apple was eaten // pop from snake when apple was not eaten
 function checkApple(){
-    if (snake[0] == apple){
+    if (snake[0][0] == apple[0] && snake[0][1] == apple[1]){
         createApple();
     }
     else{
-        snake.pop()
+        snake.pop();
     }
 };
 
 // overwrites apple with a random position
 function createApple(){
-    apple = (Math.round(Math.random() * width), Math.round(Math.random() * height));
+    apple = [Math.round(Math.random() * width), Math.round(Math.random() * height)];
 };
 
 // ends game
