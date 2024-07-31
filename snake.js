@@ -111,7 +111,7 @@ function checkApple(){
 
 // overwrites apple with a random position
 function createApple(){
-    apple = [Math.round(Math.random() * width), Math.round(Math.random() * height)];
+    apple = [Math.floor(Math.random() * width), Math.floor(Math.random() * height)];
 };
 
 // ends game
