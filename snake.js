@@ -129,5 +129,3 @@ function createApple(){
 function endGame(){
     window.alert("Game Over! Your score was: " + snake.length);
 };
-
-startGame();
