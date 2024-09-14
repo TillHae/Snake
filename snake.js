@@ -120,9 +120,11 @@ function updateScore(){
     scorePrompt.innerHTML = score
 };
 
-// overwrites apple with a random position
+// overwrites apple with a random position outside of snake
 function createApple(){
-    apple = [Math.floor(Math.random() * width), Math.floor(Math.random() * height)];
+    do{
+        apple = [Math.floor(Math.random() * width), Math.floor(Math.random() * height)];
+    } while(snake.some(part => part[0] == apple[0] && part[1] == apple[1]))
 };
 
 // ends game
