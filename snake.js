@@ -1,6 +1,7 @@
 const canvas = document.getElementById("canvas");
 const board = canvas.getContext("2d");
 const startBtn = document.getElementById("startBtn");
+const scorePrompt = document.getElementById("score");
 const gameWidth = canvas.width;
 const gameHeight = canvas.height;
 const unitSize = 50;
@@ -11,7 +12,10 @@ const SnakeColor = "green"
 
 let apple;     // (x, y)
 let snake = [[4, 4], [5, 4], [6, 4], [7, 4]];
+let score = 0       // score is always the same as amount of apples eaten
 let direction = [-1, 0]  // (left/right, down/up)
+
+scorePrompt.innerHTML = score       // update score with first value
 
 // calls changeDirection whenever a key is pressed
 window.addEventListener("keydown", changeDirection);
@@ -102,11 +106,18 @@ function gameOver(){
 // checks if apple was eaten // pop from snake when apple was not eaten
 function checkApple(){
     if (snake[0][0] == apple[0] && snake[0][1] == apple[1]){
+        updateScore();
         createApple();
     }
     else{
         snake.pop();
     }
+};
+
+// increment score by one and update the HTML prompt
+function updateScore(){
+    score += 1
+    scorePrompt.innerHTML = score
 };
 
 // overwrites apple with a random position
