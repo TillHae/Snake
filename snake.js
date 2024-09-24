@@ -55,24 +55,18 @@ function drawBoard(){
 };
 
 // changes Direction of Snake
-function changeDirection(){
-    const keyPressed = event.keyCode;
-    const left = 37;
-    const right = 39;
-    const down = 40;
-    const up = 38;
-    switch (true){
-        case (keyPressed == left):
-            direction = [-1, 0];
-            break;
-        case (keyPressed == right):
-            direction = [1, 0];
-            break;
-        case (keyPressed == down):
-            direction = [0, 1];
-            break;
-        case (keyPressed == up):
-            direction = [0, -1];
+function changeDirection(e){
+    const newDirection = ({
+        37: [-1, 0],    // left
+        39: [1, 0],     // right
+        38: [0, -1],    // up
+        40: [0, 1],     // down
+    })[event.keyCode];
+    if (newDirection !== undefined){
+        e.preventDefault();
+        if (direction[0] !== -newDirection[0]){
+            direction = newDirection;
+        }
     }
 }
 
