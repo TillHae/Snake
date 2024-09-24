@@ -24,6 +24,8 @@ startBtn.addEventListener("click", startGame);
 // start game
 function startGame(){
     createApple();
+    score = 0
+    scorePrompt.innerHTML = score
     snake = [[4, 4], [5, 4], [6, 4], [7, 4]];
     direction = [-1, 0]  // (left/right, down/up)
     nextRound();
@@ -123,5 +125,5 @@ function createApple(){
 
 // ends game
 function endGame(){
-    window.alert("Game Over! Your score was: " + snake.length);
+    window.alert("Game Over! Your score was: " + score);
 };
